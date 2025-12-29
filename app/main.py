@@ -1,4 +1,6 @@
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.config import get_settings
 from app.routers import health, webhook
 
@@ -9,10 +11,19 @@ app = FastAPI(
     debug=settings.debug,
 )
 
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.middleware("http")
 async def add_real_ip(request: Request, call_next):
-    # Cloudflare/Caddy에서 전달한 실제 클라이언트 IP
+    # X-Real-IP from nginx/proxy
     real_ip = request.headers.get("X-Real-IP")
     if real_ip:
         request.state.client_ip = real_ip

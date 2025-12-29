@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     github_webhook_secret: str = ""
     database_url: str = "postgresql+asyncpg://user:password@localhost:5432/dbname"
 
+    # CORS
+    cors_origins: list[str] = ["*"]  # ["https://example.com"] for production
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
