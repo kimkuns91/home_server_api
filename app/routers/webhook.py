@@ -29,8 +29,27 @@ def verify_signature(payload: bytes, signature: str, secret: str) -> bool:
     return hmac.compare_digest(f"sha256={expected}", signature)
 
 
-def run_deploy():
-    subprocess.run(["bash", str(DEPLOY_SCRIPT)], check=False)
+def run_deploy(branch: str) -> None:
+    logger.info(f"Deployment started for branch: {branch}")
+
+    try:
+        result = subprocess.run(
+            ["bash", str(DEPLOY_SCRIPT)],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        if result.returncode == 0:
+            logger.info(f"Deployment completed successfully for branch: {branch}")
+        else:
+            logger.error(
+                f"Deployment failed for branch: {branch}, "
+                f"exit code: {result.returncode}, "
+                f"stderr: {result.stderr}"
+            )
+    except Exception as e:
+        logger.error(f"Deployment error for branch: {branch}, exception: {e}")
 
 
 @router.post("/github")
@@ -51,6 +70,7 @@ async def github_webhook(
     event = request.headers.get("X-GitHub-Event", "")
 
     if event == "ping":
+        logger.info("Received ping event from GitHub")
         return {"message": "pong"}
 
     if event == "push":
@@ -61,11 +81,11 @@ async def github_webhook(
         logger.info(f"Push event received from branch: {branch}")
 
         if ref != DEPLOY_BRANCH:
-            logger.info(f"Ignoring push to '{branch}', only '{DEPLOY_BRANCH}' triggers deployment")
-            return {"message": f"Push to '{branch}' ignored, only 'main' triggers deployment"}
+            logger.info(f"Skipping deployment - branch '{branch}' is not main")
+            return {"message": "ok"}
 
-        logger.info(f"Starting deployment for branch: {branch}")
-        background_tasks.add_task(run_deploy)
-        return {"message": "Deployment started", "branch": branch}
+        background_tasks.add_task(run_deploy, branch)
+        return {"message": "Deployment queued", "branch": branch}
 
-    return {"message": f"Event '{event}' ignored"}
+    logger.info(f"Ignoring event: {event}")
+    return {"message": "ok"}
