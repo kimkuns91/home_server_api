@@ -8,7 +8,9 @@
       "Bash(git branch:*)",
       "Bash(git remote add:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: 홈서버 FastAPI 프로젝트 초기 설정\n\n- FastAPI + Uvicorn 기본 구조\n- PostgreSQL + SQLAlchemy 2.0 async 연결\n- Alembic 마이그레이션 설정\n- Docker + docker-compose 구성\n- Caddy 리버스 프록시 설정\n- GitHub 웹훅 자동 배포\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: 홈서버 FastAPI 프로젝트 초기 설정\n\n- FastAPI + Uvicorn 기본 구조\n- PostgreSQL + SQLAlchemy 2.0 async 연결\n- Alembic 마이그레이션 설정\n- Docker + docker-compose 구성\n- Caddy 리버스 프록시 설정\n- GitHub 웹훅 자동 배포\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nchore\\(docker\\): Caddy 제거 및 nginx 프록시 방식으로 변경\n\n- Caddy 서비스 제거\n- Caddyfile 삭제\n- api 서비스 포트 8000 직접 노출\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
