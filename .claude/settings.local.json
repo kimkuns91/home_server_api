@@ -12,7 +12,12 @@
       "Bash(git push:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nchore\\(docker\\): Caddy 제거 및 nginx 프록시 방식으로 변경\n\n- Caddy 서비스 제거\n- Caddyfile 삭제\n- api 서비스 포트 8000 직접 노출\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor: 프로젝트 구조 개선 및 개발 가이드라인 정립\n\n- CLAUDE.md에 레이어 아키텍처 규칙 추가\n- schemas/ 디렉토리 추가 \\(Pydantic 스키마\\)\n- core/ 디렉토리 추가 \\(예외, 의존성\\)\n- repositories/ 디렉토리 추가 \\(BaseRepository\\)\n- webhook에서 main 브랜치만 배포하도록 수정\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nfix\\(webhook\\): 배포 로깅 개선 및 브랜치 필터링 강화\n\n- 배포 시작/완료/실패 로그 추가\n- main 외 브랜치는 200 OK만 반환\n- subprocess 출력 캡처하여 에러 로깅\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfix\\(webhook\\): 배포 로깅 개선 및 브랜치 필터링 강화\n\n- 배포 시작/완료/실패 로그 추가\n- main 외 브랜치는 200 OK만 반환\n- subprocess 출력 캡처하여 에러 로깅\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(gh pr create:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge dev --no-ff -m \"$\\(cat <<''EOF''\nMerge branch ''dev'' into main\n\nrefactor: 프로젝트 구조 개선 및 webhook 로깅 강화\n\n- 프로젝트 레이어 아키텍처 규칙 정립 \\(CLAUDE.md\\)\n- schemas/, core/, repositories/ 디렉토리 추가\n- webhook에서 main 브랜치만 배포, 로깅 개선\nEOF\n\\)\")",
+      "Bash(git stash:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
