@@ -1,0 +1,31 @@
+from fastapi import FastAPI, Request
+from app.config import get_settings
+from app.routers import health, webhook
+
+settings = get_settings()
+
+app = FastAPI(
+    title=settings.app_name,
+    debug=settings.debug,
+)
+
+
+@app.middleware("http")
+async def add_real_ip(request: Request, call_next):
+    # Cloudflare/Caddy에서 전달한 실제 클라이언트 IP
+    real_ip = request.headers.get("X-Real-IP")
+    if real_ip:
+        request.state.client_ip = real_ip
+    else:
+        request.state.client_ip = request.client.host if request.client else None
+
+    return await call_next(request)
+
+
+app.include_router(health.router)
+app.include_router(webhook.router)
+
+
+@app.get("/")
+async def root():
+    return {"message": "Home Server API", "docs": "/docs"}
